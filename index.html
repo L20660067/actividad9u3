@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronómetro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20220701/pngtree-overcoming-obstacles-discipline-personal-concept-photo-image_24964344.jpg'); 
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(90, 65, 250, 0.8); 
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .time {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="time" id="time">00:00:00</div>
+    <button onclick="startTimer()">Iniciar</button>
+    <button onclick="pauseTimer()">Pausar</button>
+    <button onclick="resetTimer()">Reiniciar</button>
+</div>
+
+<script>
+    let hours = 0, minutes = 0, seconds = 0;
+    let timer;
+    let isRunning = false;
+
+    function updateTime() {
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes == 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+
+        document.getElementById('time').innerHTML =
+            (hours < 10 ? "0" + hours : hours) + ":" +
+            (minutes < 10 ? "0" + minutes : minutes) + ":" +
+            (seconds < 10 ? "0" + seconds : seconds);
+    }
+
+    function startTimer() {
+        if (!isRunning) {
+            timer = setInterval(updateTime, 1000);
+            isRunning = true;
+        }
+    }
+
+    function pauseTimer() {
+        clearInterval(timer);
+        isRunning = false;
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+        isRunning = false;
+        document.getElementById('time').innerHTML = "00:00:00";
+    }
+</script>
+
+</body>
+</html>
+
